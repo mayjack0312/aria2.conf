@@ -23,17 +23,10 @@
 * 有一定的防版权投诉、防迅雷吸血效果
 * 更好的 PT 下载支持
 
-## 部署方法
-
-**推荐使用以下项目部署以获得最佳使用体验**
-
-- [Aria2 Pro](https://github.com/P3TERX/docker-aria2-pro) (Docker)
-- [Aria2 一键安装管理脚本 增强版](https://github.com/P3TERX/aria2.sh) (GNU/Linux)
-
 ## 进阶玩法
 
-* [OneDrive、Google Drive 等网盘离线下载](https://p3terx.com/archives/offline-download-of-onedrive-gdrive.html)
-* [百度网盘转存到 OneDrive 、Google Drive 等其他网盘](https://p3terx.com/archives/baidunetdisk-transfer-to-onedrive-and-google-drive.html)
+* [高级进阶组合玩法——Aria2+Rclone实现OneDrive、Google Drive等网盘离线下载](https://github.com/mayjack0312/my-blog/blob/main/%E9%AB%98%E7%BA%A7%E8%BF%9B%E9%98%B6%E7%BB%84%E5%90%88%E7%8E%A9%E6%B3%95%E2%80%94%E2%80%94Aria2%2BRclone%E5%AE%9E%E7%8E%B0OneDrive%E3%80%81Google%20Drive%E7%AD%89%E7%BD%91%E7%9B%98%E7%A6%BB%E7%BA%BF%E4%B8%8B%E8%BD%BD.md)
+* [附加玩法——百度网盘转存OneDrive、Google Drive等其他网盘](https://github.com/mayjack0312/my-blog/blob/main/%E9%99%84%E5%8A%A0%E7%8E%A9%E6%B3%95%E2%80%94%E2%80%94%E7%99%BE%E5%BA%A6%E7%BD%91%E7%9B%98%E8%BD%AC%E5%AD%98OneDrive%E3%80%81Google%20Drive%E7%AD%89%E5%85%B6%E4%BB%96%E7%BD%91%E7%9B%98.md)
 
 ## 文件说明
 
@@ -50,54 +43,4 @@
 | `rclone.env`            | [RCLONE 环境变量](https://rclone.org/docs/#environment-variables)文件。配合`upload.sh`使用，用于配置 RCLONE 的选项参数。                                                                                                                                                                  |
 | `move.sh`               | 文件移动脚本。在下载完成后执行([on-download-complete](https://aria2.github.io/manual/en/html/aria2c.html#cmdoption-on-download-complete))，自动将下载完成的文件移动到指定目录，并自动清理控制文件(`*.aria2`)、种子文件(`*.torrent`)和空目录。（默认不启用）                               |
 | `tracker.sh`            | BT tracker 列表更新脚本。在 Aria2 配置文件(`aria2.conf`)所在目录执行即可获取[最新 tracker 列表](https://raw.githubusercontent.com/XIU2/TrackersListCollection/master/all.txt)并添加到配置文件中。其它使用方法详见 [tracker.md](./tracker.md)                                              |
-| `dht.dat`<br>`dht6.dat` | DHT 网络节点数据文件。提升 BT 下载率和下载速度的关键之一。相关科普：《[解决 Aria2 无法下载磁力链接、BT种子和速度慢的问题](https://p3terx.com/archives/solved-aria2-cant-download-magnetic-link-bt-seed-and-slow-speed.html)》                                                             |
-
-## 遇到问题如何处理
-
-遇到问题先看 [FAQ](https://p3terx.com/archives/aria2_perfect_config-faq.html) 再提问，你还可以加入 [Aria2 TG 群](https://t.me/Aria2c)和小伙伴们一起讨论。要注意提问的方式和提供有用的信息，提问前建议去学习《[提问的智慧](https://github.com/ryanhanwu/How-To-Ask-Questions-The-Smart-Way/blob/master/README-zh_CN.md)》，这能更好的帮助你去解决问题和节约时间。诸如 “为什么不能使用？”、“那你能帮帮我吗？” 之类的问题应该没有人会知道。
-
-## 更新日志
-
-更新推送：[Aria2 Channel](https://t.me/Aria2_Channel)
-
-### 2021-07-04
-
-- 新增 正则表达式文件过滤功能。感谢 @hereisderek
-- 新增 支持自定义多个 tracker 列表 URL ([Aria2 Pro](https://github.com/P3TERX/Aria2-Pro-Docker))。感谢 @hereisderek
-- 修复 目录名有特殊符号时导致的路径处理错误。感谢 @zzjjbb
-
-### 2020-12-24
-
-- 调整一些过于激进的配置选项值，提升稳定性。
-  - 单个 BT 下载任务最大连接数(`bt-max-peers`)从`0`(不限制)调整为`128`，减少不必要的 CPU 和网络占用。
-  - 下载进度自动保存间隔时间(`auto-save-interval`)从`1`秒调整为`20`秒，减少磁盘 I/O 。
-- 补充一些说明和设置建议。
-
-### 2020-12-09
-
-- 优化 RCLONE 环境变量文件加载方法
-- 更换 User Agent（因部分用户的滥用行为导致被某知名开源镜像站屏蔽）
-- 增加一些高级选项及说明
-
-### 2020-07-12 | V3
-
-- 全新 附加功能脚本
-- 新增 种子文件删除功能
-- 新增 全局文件过滤功能
-- 新增 前端自定义临时下载目录功能。免手动设定脚本中的路径。
-- 新增 附加功能脚本核心文件(`core`)。强大的功能源自于强大的核心。
-- 新增 附加功能脚本配置文件(`script.conf`)。独立文件持久化配置，方便更新。
-- 新增 RCLONE 环境变量文件(`rclone.env`)
-- 优化 文件删除机制。防止极限环境和极端使用习惯情况下误删文件。
-- 更多改进请自行体验
-
-<details>
-<summary>历史记录</summary>
-
-早期版本和其它记录已归档至 [v2 分支](https://github.com/P3TERX/aria2.conf/tree/v2)
-
-</details>
-
-## 声明
-
-本项目使用 [MIT](https://github.com/P3TERX/aria2.conf/blob/master/LICENSE) 开源协议，对于本项复制、修改、发布等行为请遵守相关协议保留所有文件中的版权信息，谢谢合作！
+| `dht.dat`<br>`dht6.dat` | DHT 网络节点数据文件。提升 BT 下载率和下载速度的关键之一。|
